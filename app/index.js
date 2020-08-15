@@ -90,6 +90,7 @@ let DISABLE_ALERTS = false;
 // Data to send back to phone
 let dataToSend = {
   heart: 0,
+  floors: userActivity.get().elevationGain,
   steps: userActivity.get().steps
 };
 dismiss.onclick = function(evt) {
@@ -166,6 +167,7 @@ function update() {
   // Data to send back to phone
   dataToSend = {
     heart: heartrate,
+    floors: userActivity.get().elevationGain,
     steps: userActivity.get().steps
   };
 
@@ -239,27 +241,47 @@ function update() {
       }
     }
     
-    if( currentBgFromBloodSugars[data.settings.layoutThree] && data.settings.layoutThree != 'steps' ){
+    if (currentBgFromBloodSugars[data.settings.layoutThree] && 
+      (data.settings.layoutThree != 'floors' && data.settings.layoutThree != 'steps')) {
       steps.text =  currentBgFromBloodSugars[data.settings.layoutThree];
       stepIcon.style.display = 'none';
       steps.x  = 10;
-    } else {
-      steps.text = commas(userActivity.get().steps);
-      stepIcon.style.display = 'inline';
-      steps.x  = 35;
-    }    
-    
-    if( currentBgFromBloodSugars[data.settings.layoutFour] && data.settings.layoutFour != 'heart' ){
-      heart.text =  currentBgFromBloodSugars[data.settings.layoutFour];
-      heartIcon.style.display = 'none';
-      heart.x  = 10;
-    } else {
-      heart.text = userActivity.get().heartRate;
-      heartIcon.style.display = 'inline';
-      heart.x  = 35;
     }
-
-    
+    else {
+      if (data.settings.layoutThree == 'floors') {
+        steps.text = userActivity.get().elevationGain;
+        stepIcon.href = "img/stairs.png";
+        stepIcon.style.display = 'inline';
+        steps.x = 35;
+      }
+      else { 
+        steps.text = commas(userActivity.get().steps);
+        stepIcon.href = "img/step.png";
+        stepIcon.style.display = 'inline';
+        steps.x  = 35;
+      }
+    }
+ 
+    if (currentBgFromBloodSugars[data.settings.layoutFour] && 
+        (data.settings.layoutFour != 'floors' && data.settings.layoutFour != 'heart')) {
+        heart.text =  currentBgFromBloodSugars[data.settings.layoutFour];
+        heartIcon.style.display = 'none';
+        heart.x  = 10;
+    } 
+    else {
+      if (data.settings.layoutFour == 'floors') {
+        heart.text = userActivity.get().elevationGain;
+        heartIcon.href = "img/stairs.png";
+        heartIcon.style.display = 'inline';
+        heart.x  = 35;
+      }
+      else {
+        heart.text = userActivity.get().heartRate;
+        heartIcon.href = "img/heart.png";
+        heartIcon.style.display = 'inline';
+        heart.x = 35;
+      }
+    }
     
     sgv.text = currentBgFromBloodSugars.currentbg;   
     largeGraphsSgv.text = currentBgFromBloodSugars.currentbg; 
