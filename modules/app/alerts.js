@@ -31,7 +31,9 @@ let alertHeader = document.getElementById("alertHeader");
 let dismiss = popup.getElementById("dismiss");
 let popupTitle = document.getElementById("popup-title");
 let alertArrows = document.getElementById("alertArrows");
-let popupLeadText = popup.getElementById('copy')
+let popupLeadText = popup.getElementById('copy');
+let main = document.getElementById("main");
+let largeGraphView = document.getElementById("largeGraphView");
 
 const dateTime = new DateTime();
 
@@ -43,7 +45,7 @@ export default class alerts {
 
 		alertArrows.href = '../resources/img/arrows/' + bg.direction + '.png';
 		alertArrows.style.display = 'inline';
-		console.log('app - Alerts - Check()')
+		console.log('app - Alerts - Check()');
 		sgv.style.fill = "#75bd78";
 		largeGraphsSgv.style.fill = "#75bd78";
 		errorLine.style.fill = "#75bd78";
@@ -59,8 +61,12 @@ export default class alerts {
             if (!settings.dismissGoingRange || (bg.direction != 'FortyFiveUp' && 
                                                 bg.direction != 'SingleUp' && bg.direction != 'DoubleUp')) {
 						  if (timeSenseLastSGV <= 8) {
-							  console.log('low BG')
+							  console.log('low BG');
 							  vibration.start("ring");
+                if (largeGraphView.style.display === "inline") {
+                  largeGraphView.style.display = "none";
+                  main.style.display = "inline"; 
+                }
 							  popup.style.display = "inline";
 							  popupTitle.style.display = "inline";
 							  popupTitle.text = currentBG;
@@ -84,8 +90,12 @@ export default class alerts {
             if (!settings.dismissGoingRange || (bg.direction != 'FortyFiveDown' && 
                                                 bg.direction != 'SingleDown' && bg.direction != 'DoubleDown')) {
 						  if (timeSenseLastSGV <= 8) {
-							  console.log('high BG')
+							  console.log('high BG');
 							  vibration.start("ring");
+                if (largeGraphView.style.display === "inline") {
+                  largeGraphView.style.display = "none";
+                  main.style.display = "inline"; 
+                } 
 							  popup.style.display = "inline";
 							  popupTitle.style.display = "inline";
 							  popupTitle.text = currentBG;
@@ -116,10 +126,14 @@ export default class alerts {
 			if (!settings.disableAlert) {
 				if (!DISABLE_ALERTS) {
 					if (settings.loopstatus) {
-						console.log('loopstatus')
+						console.log('loopstatus');
 						alertArrows.style.display = 'none';
 						popupTitle.style.fill = "#de4430";
 						vibration.start("ring");
+            if (largeGraphView.style.display === "inline") {
+              largeGraphView.style.display = "none";
+              main.style.display = "inline"; 
+            }
 						popup.style.display = "inline";
 						popupTitle.style.display = "inline";
 						popupTitle.text = loopstatus;
@@ -136,9 +150,13 @@ export default class alerts {
 				if (!DISABLE_ALERTS) {
 					if (settings.rapidFall) {
 						alertArrows.style.display = 'none';
-						console.log('Double Down')
+						console.log('Double Down');
 						popupTitle.style.fill = "#de4430";
 						vibration.start("ring");
+            if (largeGraphView.style.display === "inline") {
+              largeGraphView.style.display = "none";
+              main.style.display = "inline"; 
+            }
 						popup.style.display = "inline";
 						popupTitle.style.display = "inline";
 						popupTitle.text = 'Rapid Fall!';
@@ -150,9 +168,13 @@ export default class alerts {
 				if (!DISABLE_ALERTS) {
 					if (settings.rapidRise) {
 						alertArrows.style.display = 'none';
-						console.log('Double Up')
+						console.log('Double Up');
 						popupTitle.style.fill = "#de4430";
 						vibration.start("ring");
+            if (largeGraphView.style.display === "inline") {
+              largeGraphView.style.display = "none";
+              main.style.display = "inline"; 
+            }
 						popup.style.display = "inline";
 						popupTitle.style.display = "inline";
 						popupTitle.text = 'Rapid Rise!';
@@ -169,6 +191,10 @@ export default class alerts {
 						alertArrows.style.display = 'none';
 						popupTitle.style.fill = "#de4430";
 						vibration.start("ring");
+            if (largeGraphView.style.display === "inline") {
+              largeGraphView.style.display = "none";
+              main.style.display = "inline"; 
+            }
 						popup.style.display = "inline";
 						popupTitle.style.display = "inline";
 						popupTitle.text = 'Stale data';
@@ -179,7 +205,7 @@ export default class alerts {
 
 	}
 	stop() {
-		console.log('app - Alerts - stop()')
+		console.log('app - Alerts - stop()');
 		vibration.stop();
 	}
 };
