@@ -56,12 +56,15 @@ export default class alerts {
 			if (!settings.disableAlert) {
 				if (!DISABLE_ALERTS) {
 					if (settings.lowAlerts) {
-						if (timeSenseLastSGV <= 8) {
-							console.log('low BG')
-							vibration.start("ring");
-							popup.style.display = "inline";
-							popupTitle.style.display = "inline";
-							popupTitle.text = currentBG;
+            if (!settings.dismissGoingRange || (bg.direction != 'FortyFiveUp' && 
+                                                bg.direction != 'SingleUp' && bg.direction != 'DoubleUp')) {
+						  if (timeSenseLastSGV <= 8) {
+							  console.log('low BG')
+							  vibration.start("ring");
+							  popup.style.display = "inline";
+							  popupTitle.style.display = "inline";
+							  popupTitle.text = currentBG;
+              }
 						}
 					}
 				}
@@ -78,12 +81,15 @@ export default class alerts {
 			if (!settings.disableAlert) {
 				if (!DISABLE_ALERTS) {
 					if (settings.highAlerts) {
-						if (timeSenseLastSGV <= 8) {
-							console.log('high BG')
-							vibration.start("ring");
-							popup.style.display = "inline";
-							popupTitle.style.display = "inline";
-							popupTitle.text = currentBG;
+            if (!settings.dismissGoingRange || (bg.direction != 'FortyFiveDown' && 
+                                                bg.direction != 'SingleDown' && bg.direction != 'DoubleDown')) {
+						  if (timeSenseLastSGV <= 8) {
+							  console.log('high BG')
+							  vibration.start("ring");
+							  popup.style.display = "inline";
+							  popupTitle.style.display = "inline";
+							  popupTitle.text = currentBG;
+              }
 						}
 					}
 				}

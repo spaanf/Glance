@@ -63,6 +63,7 @@ function mySettings(props) {
             <TextInput label="Dismiss high alerts for n minutes" settingsKey="dismissHighFor" /> 
             <Toggle settingsKey="lowAlerts" label="Low Alerts"/>
             <TextInput label="Dismiss low alerts for n minutes" settingsKey="dismissLowFor" />
+            <Toggle settingsKey="dismissGoingRange" label="No alert while recovering"/>
             <Toggle settingsKey="rapidRise" label="Rapid Rise Alerts"/>
             <Toggle settingsKey="rapidFall" label="Rapid Fall Alerts"/>
              {((props.settings.dataSource) ? ((JSON.parse(props.settings.dataSource).values[0].value == 'nightscout') ? <Toggle settingsKey="loopstatus" label="Loop Status Alerts"/> : null) : null)}                                     

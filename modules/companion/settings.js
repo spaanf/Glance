@@ -174,6 +174,14 @@ export default class settings {
      settingsStorage.setItem("rapidFall", true);
    } 
   
+   let dismissGoingRange = null;
+   if (settingsStorage.getItem('dismissGoingRange')) {
+     dismissGoingRange = JSON.parse(settingsStorage.getItem('dismissGoingRange'));    
+   } else if (!dismissGoingRange) {
+     dismissGoingRange = false;
+     settingsStorage.setItem("dismissGoingRange", false);
+   }
+   
    let timeFormat = null;
    if (settingsStorage.getItem('timeFormat')) {
      timeFormat = JSON.parse(settingsStorage.getItem('timeFormat')).values[0].value;
@@ -395,7 +403,8 @@ export default class settings {
      USAVSInternational,
      resetAlertDismissal,
      staleData,
-     staleDataAlertAfter
+     staleDataAlertAfter,
+     dismissGoingRange
    }
    return settings;
   };
